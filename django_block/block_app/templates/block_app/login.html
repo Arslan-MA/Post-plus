@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <style>
+        body {
+            margin: 0;
+            text-align: center;
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            background-color: black;
+        }
+
+        .btn {
+            margin: auto;
+            font-size: 20px;
+            width: 180px;
+            padding: 8px;
+        }
+
+        .main_block {
+            border: 3px solid;
+            width: 850px;
+            margin: auto;
+            margin-top: 50px;
+            font-size: 28px;
+        }
+
+        .errors {
+            width: 300px;
+            margin: auto;
+            color: red;
+            text-align: left;
+        }
+
+        .inp_class {
+            font-size: 25px;
+            padding: 7px;
+            width: 300px;
+        }
+
+        .btn1 {
+            font-size: 28px;
+            width: 200px;
+            padding: 5px;
+            margin: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}"><button type="button" class="btn">Главное</button></a>
+        <a href="{% url 'create' %}"><button type="button" class="btn">Создать пост</button></a>
+        <a href="{% url 'register' %}"><button type="button" class="btn">Регистрация</button></a>
+    </div>
+    <h1>Вход в аккаунт</h1>
+    <div class="main_block">
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>{{ form.as_p }}</p>
+            <button type="submit" class="btn1">Вход</button>
+        </form>
+    </div>
+</body>
+
+</html>

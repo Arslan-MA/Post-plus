@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <style>
+        body {
+            margin: 0;
+            text-align: center;
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            background-color: black;
+        }
+
+        .btn {
+            margin: auto;
+            font-size: 20px;
+            width: 180px;
+            padding: 8px;
+        }
+
+        .main_block {
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .post {
+            border: 3px solid;
+            padding: 10px;
+            font-size: 20px;
+            width: 800px;
+            margin: auto;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transition: 1s;
+        }
+
+        .post:hover{
+            width: 900px;
+            font-size: 20px;
+            padding: 20px;
+            transition: 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="{% url 'home' %}"><button type="button" class="btn">Главное</button></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'create' %}"><button type="button" class="btn">Создать пост</button></a>
+            <a href="{% url 'edit_password' %}"><button type="button" class="btn">Смена пароля</button></a>
+            <a href="{% url 'reset_password' %}"><button type="button" class="btn">Сброс пароля</button></a>
+            <a href="{% url 'logout' %}"><button type="button" class="btn">Выход</button></a>
+        {% else %}
+            <a href="{% url 'register' %}"><button type="button" class="btn">Регистрация</button></a>
+            <a href="{% url 'login' %}"><button type="button" class="btn">Вход</button></a>
+        {% endif %}
+    </div>
+    <h1>Посты пользователей</h1>
+    <div class="main_block">
+        {% for post in posts %}
+        <div class="post">
+            <p><b>Автор:</b> {{ post.author }}</p>
+            <p><b>Заголовок:</b> {{ post.title }}</p>
+            <p><b>Тект:</b> {{ post.content }}</p>
+            <p><b>Дата публикации:</b> {{ post.date_posted }}</p>
+            {% if user == post.author or user.username == 'admin' %}
+                <a href="{% url 'edit' post.pk %}"><button type="button" class="btn1">Редактировать</button></a>
+                <a href="{% url 'delete' post.pk %}"><button type="button" class="btn1">Удалить</button></a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
